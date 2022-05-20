@@ -79,15 +79,15 @@ const Register = () => {
   }
 
   useEffect(() => {
-    /* const loadData = async () => {
-      const data = await AsyncStorage.getItem('@gofinances:transactions');
-      console.log(JSON.parse(data!)) *///essa exclamação é tipo: pode confiar em mim, sempre vai ter alguma coisa nesse data 
-    /* }
-    loadData(); */
-    async function removeAll() {
-      await AsyncStorage.removeItem('@gofinances:transactions')
+    const loadData = async () => {
+      const data = await AsyncStorage.getItem(`@gofinances:transactions_user:${user.id}`);
+      console.log(JSON.parse(data!)) //essa exclamação é tipo: pode confiar em mim, sempre vai ter alguma coisa nesse data 
     }
-    removeAll(); //ai eu to limpando a aplicação
+    loadData();
+    /* async function removeAll() {
+      await AsyncStorage.removeItem(`@gofinances:transactions_user:${user.id}`)
+    }
+    removeAll(); */ //ai eu to limpando a aplicação
   }, [])
 
   return (

@@ -6,7 +6,6 @@ import TransactionCard, {TransactionCardProps} from '../../components/Transactio
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFocusEffect } from '@react-navigation/native';
 import { useTheme } from 'styled-components';
-import {useNavigation} from '@react-navigation/native'
 import { useAuth } from '../../hooks/auth';
 
 export interface DataListProps extends TransactionCardProps {
