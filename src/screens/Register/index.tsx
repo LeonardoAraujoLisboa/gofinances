@@ -104,11 +104,11 @@ const Register = () => {
               <TransactionTypeButton title='Income' type='up' onPress={() => setTransactionType('positive')} isActive={transactionType === 'positive'}/> 
               <TransactionTypeButton title='Outcome' type='down' onPress={() => setTransactionType('negative')} isActive={transactionType === 'negative'}/>
             </TransactionTypes>
-            <CategorySelectButton title={category.name} onPress={() => setCategoryModal(true)}/>
+            <CategorySelectButton testID='button-category' title={category.name} onPress={() => setCategoryModal(true)}/>
           </Fields>
           <Button title='Enviar' onPress={handleSubmit(handleRegister)}/>
         </Form>
-        <Modal visible={categoryModal}>{/* ele ja aparece pq o padrão é verdadeiro */}
+        <Modal testID='modal-category' visible={categoryModal}>{/* ele ja aparece pq o padrão é verdadeiro */}
           <CategorySelect category={category} setCategory={setCategory} closeSelectCategory={() => setCategoryModal(false)/* handleCloseSelectCategory */}/>
         </Modal>
       </Container>

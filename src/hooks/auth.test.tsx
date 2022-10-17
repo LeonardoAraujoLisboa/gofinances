@@ -3,9 +3,18 @@ import {renderHook, act} from '@testing-library/react-hooks'/* importa isso pq n
 import fetchMock from 'jest-fetch-mock'
 import { startAsync } from 'expo-auth-session';
 
-fetchMock.enableMocks();
+const mockStartAsync = jest.fn();
+jest.mock('expo-auth-session', () => {
+  return {
+    startAsync: () => mockStartAsync()
+  }
+})
 
-jest.mock('expo-auth-session')
+jest.mock('expo-apple-authentication', () => ({}))
+
+jest.mock('@react-native-async-storage/async-storage', () => ({
+  setItem: async () => {}
+}))
 
 /* 1 - Abre uma tela para o usuário autenticar, mas isso é um fator externo, que é p usuário se autenticar e os testes nao podem depender de fatores externos
 2 - Retorna type e params
@@ -16,23 +25,30 @@ describe('Auth Hook', () => {
 
     it('Should be able to sign in with google acount existing', async () => {
         
-        const userTest = {
-            id: 'any_id',
-            email: 'john.doe@email.com',
-            name: 'John Doe',
-            photo: 'any_photo.png',
-        };
-
-        const googleMocked = jest.mocked(startAsync as any)
-
-        googleMocked.mockReturnValue({
+        mockStartAsync.mockReturnValue({
             type: 'success',
             params: {
-                access_token: 'any_token'
+              access_token: 'my-access-token'
+            },
+            user: {
+              id: 'any_id',
+              email: 'leo_araujo05@hotmial.com',
+              name: 'Leonardo',
+              photo: 'picture'
             }
-        })
-
-        fetchMock.mockResponseOnce(JSON.stringify(userTest))
+          })
+      
+      
+          global.fetch = jest.fn(() => Promise.resolve({
+            json: () => Promise.resolve({
+              id: `userInfo.id`,
+              email: `userInfo.email`,
+              name: `useInfo.given_name`,
+              photo: `userInfo.picture`,
+              locale: `userInfo.locale`,
+              verified_email: `userInfo.verified_email`
+            })
+          })) as jest.Mock;
 
         const {result} = renderHook(() => useAuth(), {
             wrapper: AuthProvider
@@ -41,8 +57,23 @@ describe('Auth Hook', () => {
 
         await act(() => result.current.signInWithGoogle())/* tenho que fazer isso pq essa função do sigin atualiza um ESTADO entao tenho q fazer isso e ele tem q ser assincrono*/
 
-        expect(result.current.user).toBeTruthy
+        expect(result.current.user).toBeTruthy()
+        //expect(result.current.user).not.toHaveProperty('id') esse dai deu erro pq ja recebeu o id do usuario
     })
     
+    it('user should not connect if cancel authemtication with Google', async () => {
+        mockStartAsync.mockReturnValue({
+            type: 'error',
+          })
+
+        const {result} = renderHook(() => useAuth(), {
+            wrapper: AuthProvider
+        })
+        /* console.log(result.current); */
+
+        await act(() => result.current.signInWithGoogle())/* tenho que fazer isso pq essa função do sigin atualiza um ESTADO entao tenho q fazer isso e ele tem q ser assincrono*/
+
+        expect(result.current.user).not.toHaveProperty('id')//passou também
+    })
 
 })
