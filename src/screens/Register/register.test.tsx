@@ -23,8 +23,8 @@ describe('Register Screen', () => {
 
         const categoryModal = getByTestId('modal-category')
         const buttonCategory = getByTestId('button-category')
-        fireEvent.press(buttonCategory)
+        fireEvent.press(buttonCategory)//Agora vou fazer um teste clicando no botao
 
-        expect(categoryModal.props.visible).toBeTruthy()//o teste passa assim, pois o modal começa como falso. Agora vou fazer um teste clicando no botao
+        expect(categoryModal.props.visible).toBeTruthy()//o teste passa assim, pois o modal começa como falso. 
     })
 })
