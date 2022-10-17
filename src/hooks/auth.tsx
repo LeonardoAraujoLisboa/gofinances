@@ -61,7 +61,8 @@ export default function AuthProvider ({children}: AuthProviderProps) {
                await AsyncStorage.setItem(userStorageKey, JSON.stringify(userLogged));
            } 
        } catch (error) {
-           throw new Error(error)
+            console.log(error);
+           throw new Error(`${error}`)
        }
    }
 
@@ -80,7 +81,7 @@ export default function AuthProvider ({children}: AuthProviderProps) {
             await AsyncStorage.setItem(userStorageKey, JSON.stringify(userLogged))
         }
         } catch (error) {
-        throw new Error(error);
+           throw new Error(`${error}`)
         }
     }
 
