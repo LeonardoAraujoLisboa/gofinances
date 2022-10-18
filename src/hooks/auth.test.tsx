@@ -10,7 +10,7 @@ jest.mock('expo-auth-session', () => {
   }
 })
 
-jest.mock('expo-apple-authentication', () => ({}))
+jest.mock('expo-apple-authentication', () => {})
 
 jest.mock('@react-native-async-storage/async-storage', () => ({
   setItem: async () => {}

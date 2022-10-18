@@ -1,6 +1,6 @@
 import React from 'react'
 import Register from '.'
-import {render, fireEvent} from '@testing-library/react-native'
+import {render, fireEvent, waitFor} from '@testing-library/react-native'
 import { ThemeProvider } from 'styled-components/native'
 import theme from '../../global/styles/theme'
 
@@ -13,7 +13,7 @@ const Providers = ({children}:any) => {
 }
 
 describe('Register Screen', () => {
-    it('should be open category modal when user click on button', () => {
+    it('should be open category modal when user click on button', async () => {
         const {getByTestId} = render(
             <Register />,
             {
@@ -23,8 +23,10 @@ describe('Register Screen', () => {
 
         const categoryModal = getByTestId('modal-category')
         const buttonCategory = getByTestId('button-category')
-        fireEvent.press(buttonCategory)//Agora vou fazer um teste clicando no botao
+        fireEvent.press(buttonCategory)//esse é um teste clicando no botao
 
-        expect(categoryModal.props.visible).toBeTruthy()//o teste passa assim, pois o modal começa como falso. 
+        await waitFor(() => {//isso é pra rodar testes asyncronos, uma api e talls, tem que colocar esse waitfor
+            expect(categoryModal.props.visible).toBeTruthy()//o teste passa assim, pois o modal começa como falso. 
+        })
     })
 })
