@@ -14,6 +14,8 @@ const Providers = ({children}:any) => {
 
 jest.mock('expo-apple-authentication', () => {})
 
+jest.mock('@react-navigation/native');
+
 describe('Register Screen', () => {
     it('should be open category modal when user click on button', async () => {
         const {getByTestId} = render(
