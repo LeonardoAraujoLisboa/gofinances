@@ -30,3 +30,5 @@ describe('Register Screen', () => {
         })
     })
 })
+
+//posso utilizar o yarn test --watchAll. ai a cada save q vc da no codigo ele ja roda p teste
