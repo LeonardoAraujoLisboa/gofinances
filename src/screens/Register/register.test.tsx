@@ -12,6 +12,8 @@ const Providers = ({children}:any) => {
     )
 }
 
+jest.mock('expo-apple-authentication', () => {})
+
 describe('Register Screen', () => {
     it('should be open category modal when user click on button', async () => {
         const {getByTestId} = render(

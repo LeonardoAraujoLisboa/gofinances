@@ -18,5 +18,15 @@ module.exports = {
     ],
     setupFiles: [
         "./jestSetupFile.js"
+    ],
+    collectCoverage: true,
+    collectCoverageFrom: [
+        "src/**/*.tsx",
+        "!src/*/*.test.tsx"
+    ],
+    coverageReporters: [
+        "lcov"
     ]
 }
+
+//roda yarn teste --coverage
