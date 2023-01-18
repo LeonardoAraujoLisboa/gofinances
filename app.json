@@ -4,6 +4,10 @@
   "expo": {
     "name": "gofinances",
     "icon": "./assets/logo.png",
+    "adaptiveIcon": { 
+      "foregroundImage": "./assets/icon.png",
+      "backgroundColor": "#FFFFFF" 
+    },
     "slug": "gofinances",
     "ios": {
       "bundleIdentifier": "com.gofinances",
@@ -34,5 +38,9 @@
         "svg"
       ]
     }
+  },
+  "splash": {
+    "image": "./assets/splash.png",
+    "backgroundColor": "#5636D3"
   }
 }
